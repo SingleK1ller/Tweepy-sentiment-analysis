@@ -1,0 +1,8 @@
+import tweepy
+from textblob import TextBlob as tb
+
+testimonial = tb("I fucking hate politics!")
+print(testimonial.sentiment)
+print(testimonial.sentiment.polarity)
+testimonial_2 = tb("eu to com fome.")
+print(testimonial_2.sentiment)
