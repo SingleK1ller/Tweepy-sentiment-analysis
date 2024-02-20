@@ -1,40 +1,36 @@
 import tweepy
+import requests
 from textblob import TextBlob as tb
 import matplotlib.pyplot as plt
 
 
-def showGraph(polarities, subjectivity, xAxis):
-    plt.title("Polarity")
-    plt.plot(xAxis, polarities, '-', color='red')
-    plt.plot(xAxis, subjectivity, '-', color='blue')
-    plt.show()
-"""
-consumer_key = 'key q tenho q colocar'
-consumer_secret = 'segredinho rsrs'
-access_token = 'token de acesso'
-access_token_secret = 'secret token acesso'
+bearer_token = 'AAAAAAAAAAAAAAAAAAAAAL7NsQEAAAAAtm62c5x8bI1Mrc0oHuCr2Z5C3Pw%3DMipCUX0LSppU2w5XQPhHrn3bnIFa2GJ4OKrW0ZDtqCzChKyaRm'
+client = tweepy.Client(bearer_token=bearer_token, 
+                       consumer_key='YBDraw0XQjcV4wNpYS8F5d2bs', 
+                       consumer_secret='RqraaaqBealjE1iV8s1MUY8ciPyU1njfbEb4HvXHmiYLNt0N2C',
+                       access_token='1759704638197039105-4AJDaU3HLPjKHbFfm4N2oSm3tSIkml',
+                       access_token_secret='OT9GHXOw7inrS9RWrInpHiPKbZ3AbplGAaQbry9Pm9Hhb'
+                       )
+
+#tweets = [tweet['text'] for tweet in response_data['data']]
+
+tweets = ["hi, i love you", "heyy i miss you"]
+xAxis = range(len(tweets))
+
+polarities = []
+for tweet_text in tweets:
+    analysis = tb(tweet_text)
+    polarities.append(analysis.sentiment.polarity)
+
+consumer_key = 'YBDraw0XQjcV4wNpYS8F5d2bs'
+consumer_secret = 'RqraaaqBealjE1iV8s1MUY8ciPyU1njfbEb4HvXHmiYLNt0N2C'
+access_token = '1759704638197039105-4AJDaU3HLPjKHbFfm4N2oSm3tSIkml'
+access_token_secret = 'OT9GHXOw7inrS9RWrInpHiPKbZ3AbplGAaQbry9Pm9Hhb'
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
+
 api = tweepy.API(auth)
 
-"""
-#public_tweets = api.search(q='python', count=100)
-public_tweets = ["Fuck you", "I hate you", "Sorry"]
-
-
-xAxis = range(len(public_tweets))
-
-polarities = []
-subject = []
-for tweet in public_tweets:
-    analysis = tb(tweet)
-    polarities.append(analysis.sentiment.polarity)
-    subject.append(analysis.sentiment[1])
-
-showGraph(polarities, subject, xAxis)
 average_polarity = sum(polarities) / len(polarities)
-print("Média de sentimento: ", average_polarity)
-
-
-
+client.create_tweet(text="test")
